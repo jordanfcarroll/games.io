@@ -3,12 +3,8 @@
 // A SKELETON GAME
 // by Jordan Carroll and Kevin Smith
 
+#include <iostream>
 using namespace std;
-
-// Functions
-
-	void startgame();
-	void endgame();
 
 
 // The Player class
@@ -47,6 +43,23 @@ public:
 };
 
 
+
+
+
+
+
+// Function Prototypes
+
+	void startgame();
+	void endgame();
+
+
+
+
+
+
+
+// Main Function
 
 int main() 
 {
