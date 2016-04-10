@@ -16,20 +16,34 @@ class Player
 {
 private:
 	int health;
+	int xpos, ypos;
 
 public:
-	int position[1][1];
 	void thwack();
+
+	int getxpos()
+		{return xpos};
+	int getypos()
+		{return ypos};
 };
 
 // The enemy class
 class Enemy
 {
+private: 
+	int xpos, ypos;
+
 
 public:
-	int position[1][1];
 	void spawn();
 	void die();
+
+	void setPosition(int, int);
+
+	int getxpos()
+		{return xpos};
+	int getypos()
+		{return ypos};
 };
 
 
