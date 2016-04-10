@@ -4,6 +4,15 @@
 // by Jordan Carroll and Kevin Smith
 
 
+// The Player class
+class Player
+{
+int health;
+
+
+
+};
+
 
 
 int main() 
