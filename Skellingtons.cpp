@@ -8,7 +8,7 @@
 using namespace std;
 
 
-// The Player class
+// THE PLAYER CLASS
 class Player
 {
 private:
@@ -27,7 +27,11 @@ public:
 //	~Player();
 };
 
-// The enemy class
+
+
+
+
+// THE ENEMY CLASS
 class Enemy
 {
 private: 
@@ -50,13 +54,25 @@ public:
 };
 
 
+//THE TILE CLASS
 
+//CODE GOES HERE
+
+
+
+
+//Global variables
+const int SCREEN_WIDTH = 640
+const int SCREEN_HEIGHT = 480.
+SDL_Window* gWindow = NULL;
+SDL_Surface* gScreenSurface = NULL;
 
 
 
 
 // Function Prototypes
 
+    bool init();
 	void startgame();
 	void endgame();
 	
@@ -75,9 +91,9 @@ int b;
 
 
 cout << "Move to which x?" ;
-cin >> a;
-cout << "Move to which y?";
 cin >> b;
+cout << "Move to which y?";
+cin >> a;
 
 printboard(a, b);
 
@@ -105,9 +121,46 @@ printboard(a, b);
 	}
 
 
+bool init()
+{
+    bool success = true;
+    if(SDL_Init(SDL_INIT_VIDEO)< 0)
+    {
+        printf("SDL failed to initialize.");
+        success = false;
+    }
+    else
+    {
+        gWindow = SDL_CreateWindow("Skellingtons", SDL_WINDOWPOS_UNDEFINED,SDL_SCREENPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    }
+    if (gWindow == NULL)
+    {
+        printf("gWindow error.")
+        success = false;
+    }
+    else
+    {
+        gScreenSurface = SDL_GetWindowSurface(gWindow);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Board printing function
-
+/*
+ 
 void printboard(int px, int py)
 {
 	int i, j;
@@ -130,7 +183,7 @@ void printboard(int px, int py)
 	cout << "XXXXXXXXXXX" << endl;
 }
 
-
+*/
 
 
 
