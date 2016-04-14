@@ -65,9 +65,6 @@ SDL_Surface* gScreenSurface = NULL;
 // Function Prototypes
 bool init();
 
-void startgame();
-void endgame();
-
 void printboard(int px, int py);
 
 
@@ -80,7 +77,30 @@ int main( int argc, char* args[] )
 {
 
     init();
-    SDL_Delay(3000);
+    
+    //Event handler
+    SDL_Event e;
+
+    
+    // GAME LOOP
+    // While application is running
+    bool quit = false;
+    while (!quit)
+    {
+        while (SDL_PollEvent( &e ) != 0)
+        {
+            // user requests quit
+            if (e.type == SDL_QUIT)
+            {
+                quit = true;
+            }
+        }
+      
+    }
+    
+    
+    
+   
 
     
     
