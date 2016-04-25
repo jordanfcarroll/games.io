@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		17669F331CBDCE0600F3931B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17669F321CBDCE0600F3931B /* main.cpp */; };
 		17669F3A1CBDCEBB00F3931B /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17669F391CBDCEBB00F3931B /* SDL2.framework */; };
+		17A8F4791CC71C43008BC1FB /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17A8F4781CC71C43008BC1FB /* SDL2_image.framework */; };
+		17A8F47F1CC7266C008BC1FB /* Playerclass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17A8F47D1CC7266C008BC1FB /* Playerclass.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,6 +29,9 @@
 		17669F2F1CBDCE0600F3931B /* Skellingtons */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Skellingtons; sourceTree = BUILT_PRODUCTS_DIR; };
 		17669F321CBDCE0600F3931B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		17669F391CBDCEBB00F3931B /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
+		17A8F4781CC71C43008BC1FB /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
+		17A8F47D1CC7266C008BC1FB /* Playerclass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Playerclass.cpp; sourceTree = "<group>"; };
+		17A8F47E1CC7266C008BC1FB /* Playerclass.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Playerclass.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17A8F4791CC71C43008BC1FB /* SDL2_image.framework in Frameworks */,
 				17669F3A1CBDCEBB00F3931B /* SDL2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -44,6 +50,7 @@
 		17669F261CBDCE0600F3931B = {
 			isa = PBXGroup;
 			children = (
+				17A8F4781CC71C43008BC1FB /* SDL2_image.framework */,
 				17669F391CBDCEBB00F3931B /* SDL2.framework */,
 				17669F311CBDCE0600F3931B /* Skellingtons */,
 				17669F301CBDCE0600F3931B /* Products */,
@@ -62,6 +69,8 @@
 			isa = PBXGroup;
 			children = (
 				17669F321CBDCE0600F3931B /* main.cpp */,
+				17A8F47D1CC7266C008BC1FB /* Playerclass.cpp */,
+				17A8F47E1CC7266C008BC1FB /* Playerclass.hpp */,
 			);
 			path = Skellingtons;
 			sourceTree = "<group>";
@@ -123,6 +132,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				17669F331CBDCE0600F3931B /* main.cpp in Sources */,
+				17A8F47F1CC7266C008BC1FB /* Playerclass.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +261,7 @@
 				17669F381CBDCE0600F3931B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
