@@ -5,6 +5,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
 #include "Playerclass.hpp"
+#include "Enemy.hpp"
+#include "Tileclass.hpp"
 
 using namespace std;
 
@@ -12,33 +14,6 @@ using namespace std;
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
 
-
-
-// THE ENEMY CLASS
-class Enemy
-{
-private:
-    int xpos, ypos;
-    
-    
-public:
-    void spawn();
-    void die();
-    
-    void setPosition(int, int);
-    
-    int getxpos()
-    {return xpos;}
-    int getypos()
-    {return ypos;}
-    // Constructor prototype
-    Enemy(int, int);
-    //	~Enemy();
-};
-
-//THE TILE CLASS
-
-//CODE GOES HERE
 
 
 
@@ -65,7 +40,6 @@ enum KeyPressSurfaces
 
 
 // Function Prototypes
-void printboard(int px,int py);
 //Starts up SDL and creates window
 bool init();
 //Loads media
@@ -83,7 +57,13 @@ SDL_Texture* loadTexture( std::string path );
 int main( int argc, char* args[] )
 {
     
-    Player Player1(3,3,3);
+    Player Player1(2,3,3);
+    
+    
+    // Array of tiles[i][j], where i is standard x-value and j is y-value, with the topmost be row being "1"
+    Tile Tiles[4][4];
+    
+    Tiles[2][3].addPlayer();
     
     
     if( !init())
@@ -111,14 +91,28 @@ int main( int argc, char* args[] )
                     {
                         quit = true;
                     }
+                    else if(e.type == SDL_KEYDOWN)
+                    {
+                        switch(e.key.keysym.sym)
+                        {
+                            case SDLK_UP:
+                                Player1.moveright();
+                            case SDLK_DOWN:
+                                Player1.movedown();
+                            case SDLK_RIGHT:
+                                Player1.moveright();
+                            case SDLK_LEFT:
+                                Player1.moveleft();
+                        }
+                    }
                 }
-                //Clear screen
+                //Clear screen to RGB white
                 SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
                 SDL_RenderClear( gRenderer );
                 
                 //Render red filled quads
                 SDL_SetRenderDrawColor( gRenderer, 0xFF, 0x00, 0x00, 0xFF );
-                for(int j = SCREEN_HEIGHT/4; j < SCREEN_HEIGHT; j += SCREEN_HEIGHT/4)
+                for(int j = SCREEN_HEIGHT/5; j < SCREEN_HEIGHT; j += SCREEN_HEIGHT/5)
                 {
                     for(int i = SCREEN_WIDTH/5; i < SCREEN_WIDTH; i += SCREEN_WIDTH/5)
                     {
@@ -128,6 +122,18 @@ int main( int argc, char* args[] )
                     }
                 }
 
+                
+                //Render player and enemies
+                
+                for(int i = 1; i < 5; i++)
+                    for(int j = 1; j < 5; j++)
+                        if (Tiles[i][j].getHasPlayer())
+                        {
+                            SDL_SetRenderDrawColor( gRenderer, 0x00, 0x00, 0xFF, 0xFF );
+                            SDL_Rect fillRect = {(i * (SCREEN_WIDTH/6)),(j * (SCREEN_HEIGHT/5)), SCREEN_WIDTH/15, SCREEN_HEIGHT/15 };
+                            SDL_RenderFillRect(gRenderer, &fillRect);
+                        }
+                
                 //Update screen
                 SDL_RenderPresent( gRenderer );
     
@@ -154,10 +160,11 @@ Player::Player(int xpos, int ypos, int health)
 }
 
 
-Enemy::Enemy(int xpos, int ypos)
+Enemy::Enemy(int xpos, int ypos, int health)
 {
     this -> xpos = xpos;
     this -> ypos = ypos;
+    this -> health = health;
 }
 
 
@@ -219,6 +226,8 @@ bool init()
 }
 
 
+
+// TEXTURE FUNCTION, CURRENTLY UNUSED?
 SDL_Texture* loadTexture( std::string path )
 {
     //The final texture
