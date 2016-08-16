@@ -1,9 +1,10 @@
  // A SKELETON GAME
-// by Jordan Carroll
+// by Jordan Carroll andddddd
 
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
+#include <cstdlib>
 #include "Playerclass.hpp"
 #include "Enemy.hpp"
 #include "Tileclass.hpp"
@@ -57,13 +58,19 @@ SDL_Texture* loadTexture( std::string path );
 int main( int argc, char* args[] )
 {
     
-    Player Player1(2,3,3);
+    Player Player1(3,3,3);
+    Enemy Enemy1(1,1,1);
+    
+    int Time = SDL_GetTicks();
     
     
-    // Array of tiles[i][j], where i is standard x-value and j is y-value, with the topmost be row being "1"
+    // Array of tiles[i][j], where i is  x-value ranging from 0 to 3 and j is y-value ranging from 0 to 3
     Tile Tiles[4][4];
     
-    Tiles[2][3].addPlayer();
+    Tiles[3][3].addPlayer();
+    Player1.setxpos(3);
+    Player1.setypos(3);
+
     
     
     if( !init())
@@ -96,16 +103,61 @@ int main( int argc, char* args[] )
                         switch(e.key.keysym.sym)
                         {
                             case SDLK_UP:
-                                Player1.moveright();
+                                Tiles[Player1.getxpos()][Player1.getypos()].removePlayer();
+                                Player1.moveup();
+                                Tiles[Player1.getxpos()][Player1.getypos()].addPlayer();
+                                break;
+                                
                             case SDLK_DOWN:
+                                Tiles[Player1.getxpos()][Player1.getypos()].removePlayer();
                                 Player1.movedown();
+                                Tiles[Player1.getxpos()][Player1.getypos()].addPlayer();
+                                break;
+                                
                             case SDLK_RIGHT:
+                                Tiles[Player1.getxpos()][Player1.getypos()].removePlayer();
                                 Player1.moveright();
+                                Tiles[Player1.getxpos()][Player1.getypos()].addPlayer();
+                                break;
+
                             case SDLK_LEFT:
+                                Tiles[Player1.getxpos()][Player1.getypos()].removePlayer();
                                 Player1.moveleft();
+                                Tiles[Player1.getxpos()][Player1.getypos()].addPlayer();
+                                break;
+                                
+                            case SDLK_1:
+                                if (Tiles[Player1.getxpos()][Player1.getypos()].getHasEnemy())
+                                {
+                                    Tiles[Player1.getxpos()][Player1.getypos()].removeEnemy();
+                                }
+                                    
+                                
                         }
                     }
                 }
+                // Spawn new enemies
+                int TotalSpawns = 0;
+                
+                if (SDL_GetTicks() - Time > 1000*TotalSpawns)
+                {
+                    while (true)
+                    {
+                        int randx = rand() % 4;
+                        int randy = rand() % 4;
+                        
+                        if (!Tiles[randx][randy].getHasEnemy())
+                        {
+                            Tiles[randx][randy].addEnemy();
+                            TotalSpawns++;
+                            break;
+                        }
+                        
+                    }
+                 
+                }
+               
+                
                 //Clear screen to RGB white
                 SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
                 SDL_RenderClear( gRenderer );
@@ -118,21 +170,33 @@ int main( int argc, char* args[] )
                     {
                         SDL_Rect fillRect = {i - SCREEN_WIDTH/14, j - SCREEN_HEIGHT/14, SCREEN_WIDTH/14, SCREEN_HEIGHT/14 };
                         SDL_RenderFillRect(gRenderer, &fillRect);
-                        
                     }
                 }
 
                 
-                //Render player and enemies
+                //Render Player
                 
-                for(int i = 1; i < 5; i++)
-                    for(int j = 1; j < 5; j++)
+                for(int j = 0; j < 4; j++)
+                    for(int i = 0; i < 4; i++)
                         if (Tiles[i][j].getHasPlayer())
                         {
                             SDL_SetRenderDrawColor( gRenderer, 0x00, 0x00, 0xFF, 0xFF );
-                            SDL_Rect fillRect = {(i * (SCREEN_WIDTH/6)),(j * (SCREEN_HEIGHT/5)), SCREEN_WIDTH/15, SCREEN_HEIGHT/15 };
+                            SDL_Rect fillRect = {((i+1) * (SCREEN_WIDTH/5) - SCREEN_WIDTH/14),((4-j) * (SCREEN_HEIGHT/5) - SCREEN_HEIGHT/14), SCREEN_WIDTH/15, SCREEN_HEIGHT/15 };
                             SDL_RenderFillRect(gRenderer, &fillRect);
                         }
+                
+                //Render Enemies
+                
+                for(int j = 0; j < 4; j++)
+                    for(int i = 0; i < 4; i++)
+                        if (Tiles[i][j].getHasEnemy())
+                        {
+                            SDL_SetRenderDrawColor( gRenderer, 0x00, 0xFF, 0xFF, 0xFF );
+                            SDL_Rect fillRect = {((i+1) * (SCREEN_WIDTH/5) - SCREEN_WIDTH/14),((4-j) * (SCREEN_HEIGHT/5) - SCREEN_HEIGHT/14), SCREEN_WIDTH/15, SCREEN_HEIGHT/15 };
+                            SDL_RenderFillRect(gRenderer, &fillRect);
+                        }
+                
+                
                 
                 //Update screen
                 SDL_RenderPresent( gRenderer );
@@ -152,6 +216,7 @@ int main( int argc, char* args[] )
 
 
 // Constructor Definition blocks
+// Tiles?
 Player::Player(int xpos, int ypos, int health)
 {
     this -> xpos = xpos;
@@ -227,33 +292,7 @@ bool init()
 
 
 
-// TEXTURE FUNCTION, CURRENTLY UNUSED?
-SDL_Texture* loadTexture( std::string path )
-{
-    //The final texture
-    SDL_Texture* newTexture = NULL;
-    
-    //Load image at specified path
-    SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
-    if( loadedSurface == NULL )
-    {
-        printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
-    }
-    else
-    {
-        //Create texture from surface pixels
-        newTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface );
-        if( newTexture == NULL )
-        {
-            printf( "Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
-        }
-        
-        //Get rid of old loaded surface
-        SDL_FreeSurface( loadedSurface );
-    }
-    
-    return newTexture;
-}
+
 
 
 

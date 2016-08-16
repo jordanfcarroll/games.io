@@ -46,6 +46,4 @@ Tile::Tile()
 {
     hasPlayer = 0;
     hasEnemy = 0;
-    
-    
 }

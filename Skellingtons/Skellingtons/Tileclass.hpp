@@ -17,8 +17,8 @@
 class Tile
 {
 private:
-    bool hasPlayer;
-    bool hasEnemy;
+    bool hasPlayer = 0;
+    bool hasEnemy = 0;
     
 public:
     

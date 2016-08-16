@@ -28,6 +28,7 @@ public:
     int getypos();
     // Constructor prototype
     Enemy(int, int, int);
+    
     //	~Enemy();
 };
 

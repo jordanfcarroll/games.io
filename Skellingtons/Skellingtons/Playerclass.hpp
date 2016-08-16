@@ -17,6 +17,8 @@ public:
     void thwack();
     int getxpos();
     int getypos();
+    void setxpos(int);
+    void setypos(int);
     void moveright();
     void moveup();
     void movedown();

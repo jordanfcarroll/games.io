@@ -8,6 +8,7 @@
 
 #include "Playerclass.hpp"
 
+
 int Player::getxpos()
 {return xpos;}
 int Player::getypos()
@@ -15,29 +16,40 @@ int Player::getypos()
 
 void Player::moveright()
 {
-    if(xpos < 4)
+    if(xpos < 3)
     {
         xpos++;
     }
 }
 void Player::moveleft()
 {
-    if(xpos > 1)
+    if(xpos > 0)
     {
         xpos--;
     }
 }
 void Player::moveup()
 {
-    if(ypos < 4)
+    if(ypos < 3)
     {
         ypos++;
     }
 }
 void Player::movedown()
 {
-    if(ypos > 1)
+    if(ypos > 0)
     {
         ypos--;
     }
 }
+
+void Player::setxpos(int a)
+{
+    xpos = a;
+}
+
+void Player::setypos(int a)
+{
+    ypos = a;
+}
+
