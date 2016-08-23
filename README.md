@@ -1,2 +1,2 @@
 # games.io
-Games we make
+Games we make together
